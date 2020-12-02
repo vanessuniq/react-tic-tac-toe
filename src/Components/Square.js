@@ -4,7 +4,7 @@ class Square extends Component {
     render() {
         return (
            <button className='square'>
-            {'TO BE COMPLETED'}
+            {/*TO BE COMPLETED*/}
            </button>
         );
     }
