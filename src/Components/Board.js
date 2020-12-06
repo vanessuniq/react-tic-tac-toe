@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { calculateWinner } from '../helper/calculateWinner';
 import Square from './Square';
 
 class Board extends Component {
@@ -11,7 +12,7 @@ class Board extends Component {
     }
     handleClick(i) {
         const squares = [...this.state.squares];
-        if (!squares[i]) {
+        if (!calculateWinner(squares) && !squares[i]) {
             squares[i] = this.state.status;
             this.setState({
                 ...this.state, 
@@ -31,10 +32,11 @@ class Board extends Component {
         )
     }
     render() {
+        const winner = calculateWinner(this.state.squares);
         const {status} = this.state;
         return (
             <div>
-                <div className="status">Next player: {status}</div>
+                <div className="status">{winner? `Winner: ${winner}` : `Next player: ${status}`}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
