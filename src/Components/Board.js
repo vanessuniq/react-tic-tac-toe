@@ -6,12 +6,19 @@ class Board extends Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
+            status: 'X'
         };
     }
     handleClick(i) {
         const squares = [...this.state.squares];
-        squares[i] = 'X';
-        this.setState({squares: squares});
+        if (!squares[i]) {
+            squares[i] = this.state.status;
+            this.setState({
+                ...this.state, 
+                squares: squares, 
+                status: squares[i] === 'X'? 'O' : 'X',
+            });
+        }
     }
      
     renderSquare(i) {
@@ -24,10 +31,10 @@ class Board extends Component {
         )
     }
     render() {
-        const status = 'Next player: X';
+        const {status} = this.state;
         return (
             <div>
-                <div className="status">{status}</div>
+                <div className="status">Next player: {status}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
